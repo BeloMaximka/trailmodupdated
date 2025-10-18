@@ -1,0 +1,15 @@
+C:\Users\Phoenix\source\repos\trailmod\trailmod\obj\Debug\trailmod.csproj.AssemblyReference.cache
+C:\Users\Phoenix\source\repos\trailmod\trailmod\obj\Debug\trailmod.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Phoenix\source\repos\trailmod\trailmod\obj\Debug\trailmod.AssemblyInfoInputs.cache
+C:\Users\Phoenix\source\repos\trailmod\trailmod\obj\Debug\trailmod.AssemblyInfo.cs
+C:\Users\Phoenix\source\repos\trailmod\trailmod\obj\Debug\trailmod.csproj.CoreCompileInputs.cache
+C:\Users\Phoenix\source\repos\trailmod\trailmod\bin\Debug\Mods\mod\assets\trailmod\lang\en.json
+C:\Users\Phoenix\source\repos\trailmod\trailmod\bin\Debug\Mods\mod\modinfo.json
+C:\Users\Phoenix\source\repos\trailmod\trailmod\bin\Debug\Mods\mod\modicon.png
+C:\Users\Phoenix\source\repos\trailmod\trailmod\bin\Debug\Mods\mod\trailmod.deps.json
+C:\Users\Phoenix\source\repos\trailmod\trailmod\bin\Debug\Mods\mod\trailmod.dll
+C:\Users\Phoenix\source\repos\trailmod\trailmod\bin\Debug\Mods\mod\trailmod.pdb
+C:\Users\Phoenix\source\repos\trailmod\trailmod\obj\Debug\trailmod.dll
+C:\Users\Phoenix\source\repos\trailmod\trailmod\obj\Debug\refint\trailmod.dll
+C:\Users\Phoenix\source\repos\trailmod\trailmod\obj\Debug\trailmod.pdb
+C:\Users\Phoenix\source\repos\trailmod\trailmod\obj\Debug\ref\trailmod.dll

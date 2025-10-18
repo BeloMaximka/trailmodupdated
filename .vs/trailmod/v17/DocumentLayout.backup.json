@@ -1,0 +1,210 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{CB2100BC-F653-402A-9FBA-EA463C2BD4FC}|trailmod\\trailmod.csproj|c:\\users\\phoenix\\source\\repos\\trailmod\\trailmod\\assets\\trailmod\\lang\\en.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{CB2100BC-F653-402A-9FBA-EA463C2BD4FC}|trailmod\\trailmod.csproj|solutionrelative:trailmod\\assets\\trailmod\\lang\\en.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB2100BC-F653-402A-9FBA-EA463C2BD4FC}|trailmod\\trailmod.csproj|c:\\users\\phoenix\\source\\repos\\trailmod\\trailmod\\assets\\trailmod\\itemtypes\\tool\\trowel.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{CB2100BC-F653-402A-9FBA-EA463C2BD4FC}|trailmod\\trailmod.csproj|solutionrelative:trailmod\\assets\\trailmod\\itemtypes\\tool\\trowel.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB2100BC-F653-402A-9FBA-EA463C2BD4FC}|trailmod\\trailmod.csproj|c:\\users\\phoenix\\source\\repos\\trailmod\\trailmod\\assets\\trailmod\\blocktypes\\soil-pretrail.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{CB2100BC-F653-402A-9FBA-EA463C2BD4FC}|trailmod\\trailmod.csproj|solutionrelative:trailmod\\assets\\trailmod\\blocktypes\\soil-pretrail.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB2100BC-F653-402A-9FBA-EA463C2BD4FC}|trailmod\\trailmod.csproj|c:\\users\\phoenix\\source\\repos\\trailmod\\trailmod\\assets\\trailmod\\blocktypes\\stone\\cairn\\cairn.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{CB2100BC-F653-402A-9FBA-EA463C2BD4FC}|trailmod\\trailmod.csproj|solutionrelative:trailmod\\assets\\trailmod\\blocktypes\\stone\\cairn\\cairn.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB2100BC-F653-402A-9FBA-EA463C2BD4FC}|trailmod\\trailmod.csproj|c:\\users\\phoenix\\source\\repos\\trailmod\\trailmod\\src\\item\\itemtrowel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB2100BC-F653-402A-9FBA-EA463C2BD4FC}|trailmod\\trailmod.csproj|solutionrelative:trailmod\\src\\item\\itemtrowel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB2100BC-F653-402A-9FBA-EA463C2BD4FC}|trailmod\\trailmod.csproj|c:\\users\\phoenix\\source\\repos\\trailmod\\trailmod\\src\\blockbehavior\\blockbehaviortrampleprotection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB2100BC-F653-402A-9FBA-EA463C2BD4FC}|trailmod\\trailmod.csproj|solutionrelative:trailmod\\src\\blockbehavior\\blockbehaviortrampleprotection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB2100BC-F653-402A-9FBA-EA463C2BD4FC}|trailmod\\trailmod.csproj|c:\\users\\phoenix\\source\\repos\\trailmod\\trailmod\\src\\blocks\\blocktrail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB2100BC-F653-402A-9FBA-EA463C2BD4FC}|trailmod\\trailmod.csproj|solutionrelative:trailmod\\src\\blocks\\blocktrail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB2100BC-F653-402A-9FBA-EA463C2BD4FC}|trailmod\\trailmod.csproj|c:\\users\\phoenix\\source\\repos\\trailmod\\trailmod\\src\\tmglobalconstants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB2100BC-F653-402A-9FBA-EA463C2BD4FC}|trailmod\\trailmod.csproj|solutionrelative:trailmod\\src\\tmglobalconstants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB2100BC-F653-402A-9FBA-EA463C2BD4FC}|trailmod\\trailmod.csproj|c:\\users\\phoenix\\source\\repos\\trailmod\\trailmod\\src\\patches.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CB2100BC-F653-402A-9FBA-EA463C2BD4FC}|trailmod\\trailmod.csproj|solutionrelative:trailmod\\src\\patches.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB2100BC-F653-402A-9FBA-EA463C2BD4FC}|trailmod\\trailmod.csproj|c:\\users\\phoenix\\source\\repos\\trailmod\\trailmod\\modinfo.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{CB2100BC-F653-402A-9FBA-EA463C2BD4FC}|trailmod\\trailmod.csproj|solutionrelative:trailmod\\modinfo.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CB2100BC-F653-402A-9FBA-EA463C2BD4FC}|trailmod\\trailmod.csproj|c:\\users\\phoenix\\source\\repos\\trailmod\\trailmod\\modicon.png||{58961B49-13E0-48C0-9258-13CBC4D40279}",
+      "RelativeMoniker": "D:0:0:{CB2100BC-F653-402A-9FBA-EA463C2BD4FC}|trailmod\\trailmod.csproj|solutionrelative:trailmod\\modicon.png||{58961B49-13E0-48C0-9258-13CBC4D40279}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "trowel.json",
+              "DocumentMoniker": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\trailmod\\assets\\trailmod\\itemtypes\\tool\\trowel.json",
+              "RelativeDocumentMoniker": "trailmod\\assets\\trailmod\\itemtypes\\tool\\trowel.json",
+              "ToolTip": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\trailmod\\assets\\trailmod\\itemtypes\\tool\\trowel.json",
+              "RelativeToolTip": "trailmod\\assets\\trailmod\\itemtypes\\tool\\trowel.json",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAqwB0AAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-18T22:40:31.119Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "soil-pretrail.json",
+              "DocumentMoniker": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\trailmod\\assets\\trailmod\\blocktypes\\soil-pretrail.json",
+              "RelativeDocumentMoniker": "trailmod\\assets\\trailmod\\blocktypes\\soil-pretrail.json",
+              "ToolTip": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\trailmod\\assets\\trailmod\\blocktypes\\soil-pretrail.json",
+              "RelativeToolTip": "trailmod\\assets\\trailmod\\blocktypes\\soil-pretrail.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-18T22:39:29.902Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "cairn.json",
+              "DocumentMoniker": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\trailmod\\assets\\trailmod\\blocktypes\\stone\\cairn\\cairn.json",
+              "RelativeDocumentMoniker": "trailmod\\assets\\trailmod\\blocktypes\\stone\\cairn\\cairn.json",
+              "ToolTip": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\trailmod\\assets\\trailmod\\blocktypes\\stone\\cairn\\cairn.json",
+              "RelativeToolTip": "trailmod\\assets\\trailmod\\blocktypes\\stone\\cairn\\cairn.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-18T22:12:58.224Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "en.json",
+              "DocumentMoniker": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\trailmod\\assets\\trailmod\\lang\\en.json",
+              "RelativeDocumentMoniker": "trailmod\\assets\\trailmod\\lang\\en.json",
+              "ToolTip": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\trailmod\\assets\\trailmod\\lang\\en.json",
+              "RelativeToolTip": "trailmod\\assets\\trailmod\\lang\\en.json",
+              "ViewState": "AgIAADwAAAAAAAAAAAAAAFUAAADyAQAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-18T22:06:45.01Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "BlockBehaviorTrampleProtection.cs",
+              "DocumentMoniker": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\trailmod\\src\\BlockBehavior\\BlockBehaviorTrampleProtection.cs",
+              "RelativeDocumentMoniker": "trailmod\\src\\BlockBehavior\\BlockBehaviorTrampleProtection.cs",
+              "ToolTip": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\trailmod\\src\\BlockBehavior\\BlockBehaviorTrampleProtection.cs",
+              "RelativeToolTip": "trailmod\\src\\BlockBehavior\\BlockBehaviorTrampleProtection.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T22:06:16.616Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "BlockTrail.cs",
+              "DocumentMoniker": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\trailmod\\src\\Blocks\\BlockTrail.cs",
+              "RelativeDocumentMoniker": "trailmod\\src\\Blocks\\BlockTrail.cs",
+              "ToolTip": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\trailmod\\src\\Blocks\\BlockTrail.cs",
+              "RelativeToolTip": "trailmod\\src\\Blocks\\BlockTrail.cs",
+              "ViewState": "AgIAAMMAAAAAAAAAAAAmwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T22:05:43.901Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "TMGlobalConstants.cs",
+              "DocumentMoniker": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\trailmod\\src\\TMGlobalConstants.cs",
+              "RelativeDocumentMoniker": "trailmod\\src\\TMGlobalConstants.cs",
+              "ToolTip": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\trailmod\\src\\TMGlobalConstants.cs",
+              "RelativeToolTip": "trailmod\\src\\TMGlobalConstants.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T22:04:41.787Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ItemTrowel.cs",
+              "DocumentMoniker": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\trailmod\\src\\Item\\ItemTrowel.cs",
+              "RelativeDocumentMoniker": "trailmod\\src\\Item\\ItemTrowel.cs",
+              "ToolTip": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\trailmod\\src\\Item\\ItemTrowel.cs",
+              "RelativeToolTip": "trailmod\\src\\Item\\ItemTrowel.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T22:04:21.244Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Patches.cs",
+              "DocumentMoniker": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\trailmod\\src\\Patches.cs",
+              "RelativeDocumentMoniker": "trailmod\\src\\Patches.cs",
+              "ToolTip": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\trailmod\\src\\Patches.cs",
+              "RelativeToolTip": "trailmod\\src\\Patches.cs",
+              "ViewState": "AgIAAIoAAAAAAAAAAAAowDUAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T21:44:28.588Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "modicon.png",
+              "DocumentMoniker": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\trailmod\\modicon.png",
+              "RelativeDocumentMoniker": "trailmod\\modicon.png",
+              "ToolTip": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\trailmod\\modicon.png",
+              "RelativeToolTip": "trailmod\\modicon.png",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2025-10-18T21:43:39.759Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "modinfo.json",
+              "DocumentMoniker": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\trailmod\\modinfo.json",
+              "RelativeDocumentMoniker": "trailmod\\modinfo.json",
+              "ToolTip": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\trailmod\\modinfo.json",
+              "RelativeToolTip": "trailmod\\modinfo.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-18T21:42:57.221Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

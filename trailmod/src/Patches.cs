@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using System.Reflection;
 using System.Diagnostics;
+using System.Collections.Generic;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.GameContent;
@@ -11,7 +12,6 @@ using Vintagestory.API.Client;
 
 namespace TrailMod
 {
-
     //////////////////////////////////////////////////////////////////////////////////////
     ///PATCHING TO ADD A UNIVERAL SET LOCATION FOR LAST ENTITY TO ATTACK ON ENTITY AGENT//
     //////////////////////////////////////////////////////////////////////////////////////
@@ -19,6 +19,30 @@ namespace TrailMod
     [HarmonyPatch(typeof(Block))]
     public class OverrideOnEntityCollide
     {
+        private struct DeferredTransform
+        {
+            public BlockPos pos;
+            public int blockId;
+            public long entityId;
+            public long enqueuedTime;
+        }
+
+        private struct DeferredSnowIceTransform
+        {
+            public BlockPos pos;
+            public int blockId;
+            public EnumBlockMaterial material;
+            public float snowLevel;
+        }
+
+        private static Queue<DeferredTransform> deferredTransforms = new Queue<DeferredTransform>();
+        private static Queue<DeferredSnowIceTransform> deferredSnowIceTransforms = new Queue<DeferredSnowIceTransform>();
+        private static IWorldAccessor cachedWorld = null;
+        private const int DEFERRED_BATCH_SIZE = 20;
+        private const int SNOW_ICE_BATCH_SIZE = 50;
+        private const long DEFERRED_PROCESS_INTERVAL_MS = 500;
+        private static long lastDeferredProcessTime = 0;
+
         [HarmonyPrepare]
         static bool Prepare(MethodBase original, Harmony harmony)
         {
@@ -29,53 +53,68 @@ namespace TrailMod
         [HarmonyPostfix]
         static void OnEntityCollideOverride(Block __instance, IWorldAccessor world, Entity entity, BlockPos pos, BlockFacing facing, Vec3d collideSpeed, bool isImpact)
         {
-            if (world.Side.IsClient() )
+            if (world.Side.IsClient())
                 return;
 
             if (entity == null)
                 return;
+
+            cachedWorld = world;
 
             //Skip any block with trample protection
             ModSystemTrampleProtection modTramplePro = entity.Api.ModLoader.GetModSystem<ModSystemTrampleProtection>();
             if (modTramplePro.IsTrampleProtected(pos))
                 return;
 
-            if ( !entity.Alive )
+            if (!entity.Alive)
                 return;
 
             if (entity is not EntityAgent)
                 return;
 
-            //Only run trail logic within 100 blocks of a player.
-            bool anyNearby = false;
+            // Check if a player is nearby (within 10 blocks for immediate processing)
+            bool playerNearby = false;
             foreach (var p in world.AllOnlinePlayers)
             {
                 var pe = p.Entity;
                 if (pe == null) continue;
-                if (pe.ServerPos.SquareDistanceTo(entity.ServerPos) <= 100 * 100)
+
+                double distSq = pe.ServerPos.SquareDistanceTo(entity.ServerPos);
+                if (distSq <= 100) // 10x10
                 {
-                    anyNearby = true;
+                    playerNearby = true;
                     break;
                 }
             }
+
+            bool anyNearby = playerNearby;
+            if (!anyNearby)
+            {
+                foreach (var p in world.AllOnlinePlayers)
+                {
+                    var pe = p.Entity;
+                    if (pe == null) continue;
+
+                    if (pe.ServerPos.SquareDistanceTo(entity.ServerPos) <= 22500) // 150x150
+                    {
+                        anyNearby = true;
+                        break;
+                    }
+                }
+            }
+
             if (!anyNearby) return;
 
-            if ( entity is EntityPlayer )
+            if (entity is EntityPlayer)
             {
                 EntityPlayer entityPlayer = (EntityPlayer)entity;
                 if (entityPlayer.Player.WorldData.CurrentGameMode != EnumGameMode.Survival)
                     if (!TMGlobalConstants.creativeTrampling || entityPlayer.Player.WorldData.CurrentGameMode != EnumGameMode.Creative)
                         return;
             }
-               
+
             if (world.Side == EnumAppSide.Client)
                 return;
-            /*
-            if (!entity.CollidedVertically)
-            {
-                if (entity is EntityPlayer) world.Logger.Debug("[trailmod] ... but player entity.collided returned false.");
-                return;
-            } //*/
 
             TrailChunkManager trailChunkManager = TrailChunkManager.GetTrailChunkManager();
             bool shouldTrackTrailData = trailChunkManager.ShouldTrackBlockTrailData(__instance);
@@ -84,56 +123,88 @@ namespace TrailMod
             {
                 //We only touch blocks we collide with the top of.
                 if (facing == BlockFacing.UP && pos.Y < entity.ServerPos.Y)
+                {
+                    // Always track trail data within 150 blocks
                     trailChunkManager.AddOrUpdateBlockPosTrailData(world, __instance, pos, entity);
-            
+                }
+
                 //Check if the center of the block overlaps the entity bounding box.
                 if (!trailChunkManager.BlockCenterHorizontalInEntityBoundingBox(entity, pos))
                     return;
 
-                float snowLevel = __instance.snowLevel;
-
-                switch (__instance.BlockMaterial)
+                // Queue snow/ice for deferred processing instead of handling inline
+                if (__instance.BlockMaterial == EnumBlockMaterial.Snow)
                 {
+                    deferredSnowIceTransforms.Enqueue(new DeferredSnowIceTransform
+                    {
+                        pos = pos.Copy(),
+                        blockId = __instance.Id,
+                        material = EnumBlockMaterial.Snow,
+                        snowLevel = __instance.snowLevel
+                    });
+                }
+                else if (__instance.BlockMaterial == EnumBlockMaterial.Ice)
+                {
+                    deferredSnowIceTransforms.Enqueue(new DeferredSnowIceTransform
+                    {
+                        pos = pos.Copy(),
+                        blockId = __instance.Id,
+                        material = EnumBlockMaterial.Ice,
+                        snowLevel = 0
+                    });
+                }
+            }
 
+            // Process deferred transforms periodically
+            if (world.ElapsedMilliseconds - lastDeferredProcessTime > DEFERRED_PROCESS_INTERVAL_MS)
+            {
+                ProcessDeferredSnowIceTransforms(world);
+                ProcessDeferredTransforms(world);
+                lastDeferredProcessTime = world.ElapsedMilliseconds;
+            }
+        }
+
+        private static void ProcessDeferredSnowIceTransforms(IWorldAccessor world)
+        {
+            int processed = 0;
+
+            while (deferredSnowIceTransforms.Count > 0 && processed < SNOW_ICE_BATCH_SIZE)
+            {
+                DeferredSnowIceTransform transform = deferredSnowIceTransforms.Dequeue();
+                Block block = world.BlockAccessor.GetBlock(transform.pos);
+
+                if (block.Id != transform.blockId)
+                    continue;
+
+                switch (transform.material)
+                {
                     case EnumBlockMaterial.Snow:
-
-                        if (snowLevel > 0)
+                        if (transform.snowLevel > 0)
                         {
-                            if (__instance is BlockSnowLayer)
+                            if (block is BlockSnowLayer snowLayer)
                             {
-                                BlockSnowLayer snowLayer = (BlockSnowLayer)__instance;
-
-                                if (snowLevel == 1)
+                                if (transform.snowLevel == 1)
                                 {
-                                    Block baseSnowBlock = world.GetBlock(snowLayer.CodeWithVariant("height", "" + 1));
-                                    world.BlockAccessor.SetBlock(baseSnowBlock.Id, pos);
-                                    return;
+                                    Block baseSnowBlock = world.GetBlock(snowLayer.CodeWithVariant("height", "1"));
+                                    world.BlockAccessor.SetBlock(baseSnowBlock.Id, transform.pos);
                                 }
-
-                                Block block = world.GetBlock(snowLayer.CodeWithVariant("height", "" + (snowLevel - 1)));
-                                world.BlockAccessor.SetBlock(block.Id, pos);
-
-                                __instance.snowLevel = Math.Clamp(snowLevel - 1, 0, snowLevel);
-
+                                else
+                                {
+                                    Block newSnowBlock = world.GetBlock(snowLayer.CodeWithVariant("height", "" + (transform.snowLevel - 1)));
+                                    world.BlockAccessor.SetBlock(newSnowBlock.Id, transform.pos);
+                                }
                             }
-
-                            if (__instance is BlockTallGrass)
+                            else if (block is BlockTallGrass)
                             {
-                                BlockTallGrass tallGrass = (BlockTallGrass)__instance;
+                                BlockTallGrass tallGrass = (BlockTallGrass)block;
                                 Block baseTallGrassBlock = world.GetBlock(tallGrass.CodeWithVariant("cover", "snow"));
-                                world.BlockAccessor.SetBlock(baseTallGrassBlock.Id, pos);
-                                __instance.snowLevel = 1;
-                                return;                         
+                                world.BlockAccessor.SetBlock(baseTallGrassBlock.Id, transform.pos);
                             }
-
-                            break;
                         }
-
                         break;
 
                     case EnumBlockMaterial.Ice:
-
-                        if (__instance is BlockLakeIce)
+                        if (block is BlockLakeIce)
                         {
                             if (world.Rand.NextDouble() < 0.001)
                             {
@@ -141,7 +212,7 @@ namespace TrailMod
 
                                 foreach (BlockFacing blockFacing in horizontals)
                                 {
-                                    BlockPos possibleIcePos = pos.AddCopy(blockFacing);
+                                    BlockPos possibleIcePos = transform.pos.AddCopy(blockFacing);
                                     Block possibleIceBlock = world.BlockAccessor.GetBlock(possibleIcePos);
 
                                     if (possibleIceBlock == null)
@@ -153,14 +224,37 @@ namespace TrailMod
                                     }
                                 }
 
-                                world.BlockAccessor.BreakBlock(pos, null);
-
+                                world.BlockAccessor.BreakBlock(transform.pos, null);
                             }
                         }
-
                         break;
-
                 }
+                processed++;
+            }
+        }
+
+        private static void ProcessDeferredTransforms(IWorldAccessor world)
+        {
+            int processed = 0;
+            TrailChunkManager trailChunkManager = TrailChunkManager.GetTrailChunkManager();
+
+            while (deferredTransforms.Count > 0 && processed < DEFERRED_BATCH_SIZE)
+            {
+                DeferredTransform transform = deferredTransforms.Dequeue();
+
+                // Verify block still exists and hasn't changed
+                Block currentBlock = world.BlockAccessor.GetBlock(transform.pos);
+                if (currentBlock.Id != transform.blockId)
+                    continue;
+
+                // Try to find the entity - if it's gone, skip
+                Entity touchEntity = world.GetEntityById(transform.entityId);
+                if (touchEntity == null || !touchEntity.Alive)
+                    continue;
+
+                // Process the transformation
+                trailChunkManager.AddOrUpdateBlockPosTrailData(world, currentBlock, transform.pos, touchEntity);
+                processed++;
             }
         }
     }

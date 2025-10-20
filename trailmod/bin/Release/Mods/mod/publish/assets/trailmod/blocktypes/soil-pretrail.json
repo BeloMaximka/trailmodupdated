@@ -7,7 +7,7 @@
 	],
 	behaviors: [],
 	creativeinventory: { "general": ["*"], "flora": ["*"], "terrain": ["*"] },
-	shape: { base: "block/basic/cube" },
+	shape: { base: "game:block/basic/cube" },
 	drawtypeByType: {
 		"*-none": "Cube",
 		"*": "TopSoil",

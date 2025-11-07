@@ -19,7 +19,7 @@
             "args": [
                 "--tracelog",
                 "--addModPath",
-                "${workspaceFolder}/trailmod/bin/Debug/Mods"
+                "${workspaceFolder}/TrailModUpdated/bin/Debug/Mods"
             ],
             "console": "internalConsole",
             "stopAtEntry": false
@@ -39,7 +39,7 @@
             "args": [
                 "--tracelog",
                 "--addModPath",
-                "${workspaceFolder}/trailmod/bin/Debug/Mods"
+                "${workspaceFolder}/TrailModUpdated/bin/Debug/Mods"
             ],
             "console": "internalConsole",
             "stopAtEntry": false

@@ -26,7 +26,7 @@ public static class Program
 
 public class BuildContext : FrostingContext
 {
-    public const string ProjectName = "trailmod";
+    public const string ProjectName = "TrailModUpdated";
     public string BuildConfiguration { get; }
     public string Version { get; }
     public string Name { get; }

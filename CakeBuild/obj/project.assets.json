@@ -1550,11 +1550,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\CakeBuild\\CakeBuild.csproj",
+      "projectUniqueName": "C:\\Users\\Phoenix\\source\\repos\\TrailModUpdated\\CakeBuild\\CakeBuild.csproj",
       "projectName": "CakeBuild",
-      "projectPath": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\CakeBuild\\CakeBuild.csproj",
+      "projectPath": "C:\\Users\\Phoenix\\source\\repos\\TrailModUpdated\\CakeBuild\\CakeBuild.csproj",
       "packagesPath": "C:\\Users\\Phoenix\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\CakeBuild\\obj\\",
+      "outputPath": "C:\\Users\\Phoenix\\source\\repos\\TrailModUpdated\\CakeBuild\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

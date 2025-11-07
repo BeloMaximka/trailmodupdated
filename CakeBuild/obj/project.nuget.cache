@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4z+ofYhZH28=",
+  "dgSpecHash": "zoLi/XieVLs=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Phoenix\\source\\repos\\trailmod\\CakeBuild\\CakeBuild.csproj",
+  "projectFilePath": "C:\\Users\\Phoenix\\source\\repos\\TrailModUpdated\\CakeBuild\\CakeBuild.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Phoenix\\.nuget\\packages\\autofac\\8.1.1\\autofac.8.1.1.nupkg.sha512",
     "C:\\Users\\Phoenix\\.nuget\\packages\\cake.cli\\5.0.0\\cake.cli.5.0.0.nupkg.sha512",

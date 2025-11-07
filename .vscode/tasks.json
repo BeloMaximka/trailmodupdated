@@ -9,7 +9,7 @@
                 "build",
                 "-c",
                 "Debug",
-                "${workspaceFolder}/trailmod/trailmod.csproj"
+                "${workspaceFolder}/TrailModUpdated/TrailModUpdated.csproj"
             ],
             "problemMatcher": "$msCompile"
         },

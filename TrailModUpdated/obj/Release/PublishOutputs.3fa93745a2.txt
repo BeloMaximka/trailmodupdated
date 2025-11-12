@@ -38,6 +38,7 @@ C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\m
 C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\recipes\grid\cairn.json
 C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\recipes\grid\tool\trowel.json
 C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\recipes\smithing\trowel.json
+C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\shapes\block\slab-down.json
 C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\shapes\block\stone\cairn\free1.json
 C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\shapes\block\stone\cairn\free2.json
 C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\shapes\block\stone\cairn\free3.json
@@ -64,18 +65,14 @@ C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\m
 C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\textures\block\trail\trailwear\inventory\top_pretrail.png
 C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\textures\block\trail\trailwear\inventory\top_veryestablished.png
 C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\textures\block\trail\trailwear\wearestablished.png
-C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\textures\block\trail\trailwear\wearestablished.psd
 C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\textures\block\trail\trailwear\wearestablished_dirtonly.png
 C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\textures\block\trail\trailwear\wearnew.png
-C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\textures\block\trail\trailwear\wearnew.psd
 C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\textures\block\trail\trailwear\wearnew_dirtonly.png
 C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\textures\block\trail\trailwear\wearold.png
-C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\textures\block\trail\trailwear\wearold.psd
 C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\textures\block\trail\trailwear\wearold_dirtonly.png
 C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\textures\block\trail\trailwear\wearpretrail.png
 C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\textures\block\trail\trailwear\wearpretrail_dirtonly.png
 C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\textures\block\trail\trailwear\wearveryestablished.png
-C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\textures\block\trail\trailwear\wearveryestablished.psd
 C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\textures\block\trail\trailwear\wearveryestablished_dirtonly.png
 C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\textures\icons\select.svg
 C:\Users\Phoenix\source\repos\TrailModUpdated\TrailModUpdated\bin\Release\Mods\mod\publish\assets\trailmodupdated\textures\icons\selectremove.svg

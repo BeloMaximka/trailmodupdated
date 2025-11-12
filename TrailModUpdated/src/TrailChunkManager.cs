@@ -834,6 +834,18 @@ namespace TrailModUpdated
                     RemoveBlockPosTrailData(world, blockPos);
 
                 bool touchIsPlayer = (touchEnt is EntityPlayer);
+                if (touchIsPlayer)
+                {
+                    var eplayer = touchEnt as EntityPlayer;
+                    ItemStack held = eplayer?.Player?.InventoryManager?.ActiveHotbarSlot?.Itemstack;
+                    var code = held?.Collectible?.Code;
+
+                    if (code != null && code.Domain == "game" && code.Path != null && code.Path.StartsWith("hoe-"))
+                    {
+                        // Skip tracking/transforms entirely while the hoe is held
+                        return;
+                    }
+                }
 
                 if (TMGlobalConstants.onlyPlayersCreateTrails && !touchIsPlayer)
                     return;

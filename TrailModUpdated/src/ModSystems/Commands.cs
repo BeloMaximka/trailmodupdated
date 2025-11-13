@@ -76,9 +76,11 @@ namespace TrailModUpdated.ModSystems
                             var block = ba.GetBlock(pos);
                             if (block?.Code == null) continue;
 
-                            // Only our mod’s trail/soil blocks
-                            if (block.Code.Domain != "trailmodupdated") continue;
-                            var path = block.Code.Path; // e.g. "trail-100-new" or "soil-60-pretrail"
+                            // Only our mod’s trail/soil blocks from either old or new modid
+                            string domain = block.Code.Domain;
+                            if (domain != "trailmodupdated" && domain != "trailmod") continue;
+
+                            var path = block.Code.Path; 
                             if (!(path.StartsWith("trail-") || path.StartsWith("soil-"))) continue;
 
                             // Fertility from variant, else parse from path

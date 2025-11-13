@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TrailModUpdated")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2073de210cb70f40c66bf81bdddf9ae271e38ca8")]
 [assembly: System.Reflection.AssemblyProductAttribute("TrailModUpdated")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TrailModUpdated")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

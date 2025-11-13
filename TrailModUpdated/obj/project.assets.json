@@ -8,23 +8,23 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Phoenix\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\BeloMaximkaPC\\.nuget\\packages\\": {},
+    "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Phoenix\\source\\repos\\TrailModUpdated\\TrailModUpdated\\TrailModUpdated.csproj",
+      "projectUniqueName": "D:\\Projects\\VintageStory\\Mods\\trailmodupdated\\TrailModUpdated\\TrailModUpdated.csproj",
       "projectName": "TrailModUpdated",
-      "projectPath": "C:\\Users\\Phoenix\\source\\repos\\TrailModUpdated\\TrailModUpdated\\TrailModUpdated.csproj",
-      "packagesPath": "C:\\Users\\Phoenix\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Phoenix\\source\\repos\\TrailModUpdated\\TrailModUpdated\\obj\\",
+      "projectPath": "D:\\Projects\\VintageStory\\Mods\\trailmodupdated\\TrailModUpdated\\TrailModUpdated.csproj",
+      "packagesPath": "C:\\Users\\BeloMaximkaPC\\.nuget\\packages\\",
+      "outputPath": "D:\\Projects\\VintageStory\\Mods\\trailmodupdated\\TrailModUpdated\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Phoenix\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\BeloMaximkaPC\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -32,6 +32,7 @@
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -71,7 +72,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

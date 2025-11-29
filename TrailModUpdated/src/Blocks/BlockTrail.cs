@@ -121,16 +121,18 @@ namespace TrailModUpdated
             if (finalLevel > 0 ) 
             {
                 //Devolve the block to the previous level.
-                int wearVariantID = GetTrailWearIndexFromWearCode(endVariant);
-
                 string baseCode = this.CodeWithoutParts(1);
                 string newWearVariantCode = trailVariants[finalLevel];
                 string devolveBlockCode = baseCode + "-" + newWearVariantCode;
 
-                AssetLocation devolveBlockAsset = new AssetLocation(this.Code.ShortDomain() + ":" + devolveBlockCode);
-                Block devolveBlock = trailChunkManager.worldAccessor.GetBlock(devolveBlockAsset);
+                AssetLocation devolveBlockAsset = GetDevolveBlockAsset(devolveBlockCode);
+                Block? devolveBlock = trailChunkManager.worldAccessor.GetBlock(devolveBlockAsset);
 
-                Debug.Assert(devolveBlock != null);
+                if (devolveBlock is null)
+                {
+                    api.Logger.Error("[trailmodupdated] Unable to get devolve block by code {0}", devolveBlockAsset);
+                    return;
+                }
 
                 SetLastTrailTouchDay(trailChunkManager.worldAccessor.Calendar.ElapsedDays);
                 trailChunkManager.worldAccessor.BlockAccessor.SetBlock(devolveBlock.Id, pos);
@@ -144,10 +146,14 @@ namespace TrailModUpdated
                 string fertilityVariantCode = this.Code.SecondCodePart();
                 string devolveBlockCode = PRETRAIL_START_CODE + "-" + fertilityVariantCode + "-" + PRETRAIL_END_CODE;
 
-                AssetLocation devolveBlockAsset = new AssetLocation(this.Code.ShortDomain() + ":" + devolveBlockCode);
-                Block devolveBlock = trailChunkManager.worldAccessor.GetBlock(devolveBlockAsset);
+                AssetLocation devolveBlockAsset = GetDevolveBlockAsset(devolveBlockCode);
+                Block? devolveBlock = trailChunkManager.worldAccessor.GetBlock(devolveBlockAsset);
 
-                Debug.Assert(devolveBlock != null);
+                if (devolveBlock is null)
+                {
+                    api.Logger.Error("[trailmodupdated] Unable to get devolve block by code {0}", devolveBlockAsset);
+                    return;
+                }
 
                 SetLastTrailTouchDay(trailChunkManager.worldAccessor.Calendar.ElapsedDays);
                 trailChunkManager.worldAccessor.BlockAccessor.SetBlock(devolveBlock.Id, pos);
@@ -162,11 +168,15 @@ namespace TrailModUpdated
 
                 string devolveToSoilCode = SOIL_CODE + "-" + fertilityVariantCode + "-" + SOIL_GRASS_SPARSE_CODE;
 
-                AssetLocation devolveSoilBlockAsset = new AssetLocation(devolveToSoilCode);
+                AssetLocation devolveSoilBlockAsset = new(devolveToSoilCode);
 
                 Block devolveSoilBlock = trailChunkManager.worldAccessor.GetBlock(devolveSoilBlockAsset);
 
-                Debug.Assert(devolveSoilBlock != null);
+                if (devolveSoilBlockAsset is null)
+                {
+                    api.Logger.Error("[trailmodupdated] Unable to get devolve block by code {0}", devolveSoilBlockAsset);
+                    return;
+                }
 
                 SetLastTrailTouchDay(trailChunkManager.worldAccessor.Calendar.ElapsedDays);
                 trailChunkManager.worldAccessor.BlockAccessor.SetBlock(devolveSoilBlock.Id, pos);
@@ -175,6 +185,8 @@ namespace TrailModUpdated
                     trailChunkManager.ClearBlockTouchCount(pos);
             }
         }
+
+        protected virtual AssetLocation GetDevolveBlockAsset(string code) => new(Code.ShortDomain() + ":" + code);
 
         private double GetTrailDevolveDays( string wearVariant )
         {

@@ -10,40 +10,40 @@ namespace TrailModUpdated;
 [ProtoContract(ImplicitFields = ImplicitFields.AllFields)]
 public class TrailModConfig
 {
-    public bool creativeTrampling = false;
-    public bool dirtRoadsOnly = false;
-    public bool foliageTrampleSounds = true;
-    public bool onlyPlayersCreateTrails = false;
-    public bool flowerTrampling = true;
-    public bool fernTrampling = true;
+    public bool CreativeTrampling { get; set; } = false;
+    public bool DirtRoadsOnly { get; set; } = false;
+    public bool FoliageTrampleSounds { get; set; } = true;
+    public bool OnlyPlayersCreateTrails { get; set; } = false;
+    public bool FlowerTrampling { get; set; } = true;
+    public bool FernTrampling { get; set; } = true;
 
-    public bool onlyTrampleGrassOnTrailCreation = false;
-    public bool onlyTrampleFlowersOnTrailCreation = true;
-    public bool onlyTrampleFernsOnTrailCreation = true;
+    public bool OnlyTrampleGrassOnTrailCreation { get; set; } = false;
+    public bool OnlyTrampleFlowersOnTrailCreation { get; set; } = true;
+    public bool OnlyTrampleFernsOnTrailCreation { get; set; } = true;
 
-    public float trampledSoilDevolveDays = 7.0f;
-    public float trailDevolveDays = 60.0f;
+    public float TrampledSoilDevolveDays { get; set; } = 7.0f;
+    public float TrailDevolveDays { get; set; } = 60.0f;
 
-    public int normalToSparseGrassTouchCount = 1;
-    public int sparseToVerySparseGrassTouchCount = 1;
-    public int verySparseToSoilTouchCount = 1;
-    public int soilToTrampledSoilTouchCount = 1;
-    public int trampledSoilToNewTrailTouchCount = 3;
-    public int newToEstablishedTrailTouchCount = 25;
-    public int establishedToDirtRoadTouchCount = 50;
-    public int dirtRoadToHighwayTouchCount = 75;
+    public int NormalToSparseGrassTouchCount { get; set; } = 1;
+    public int SparseToVerySparseGrassTouchCount { get; set; } = 1;
+    public int VerySparseToSoilTouchCount { get; set; } = 1;
+    public int SoilToTrampledSoilTouchCount { get; set; } = 1;
+    public int TrampledSoilToNewTrailTouchCount { get; set; } = 3;
+    public int NewToEstablishedTrailTouchCount { get; set; } = 25;
+    public int EstablishedToDirtRoadTouchCount { get; set; } = 50;
+    public int DirtRoadToHighwayTouchCount { get; set; } = 75;
 
-    public int forestFloorToSoilTouchCount = 2;
+    public int ForestFloorToSoilTouchCount { get; set; } = 2;
 
-    public int cobLoseGrassTouchCount = 1;
-    public int peatLoseGrassTouchCount = 1;
-    public int clayLoseGrassTouchCount = 1;
+    public int CobLoseGrassTouchCount { get; set; } = 1;
+    public int PeatLoseGrassTouchCount { get; set; } = 1;
+    public int ClayLoseGrassTouchCount { get; set; } = 1;
 
-    public float minEntityHullSizeToTrampleX = 0;
-    public float minEntityHullSizeToTrampleY = 0;
+    public float MinEntityHullSizeToTrampleX { get; set; } = 0;
+    public float MinEntityHullSizeToTrampleY { get; set; } = 0;
 
     // NEW: Allow players to disable the client overlay while keeping tool modes functional.
-    public bool showProtectionOverlay = true;
+    public bool ShowProtectionOverlay { get; set; } = true;
 }
 
 public class TrailModCore : ModSystem
@@ -111,7 +111,7 @@ public class TrailModCore : ModSystem
         );
     }
 
-    private void RegisterBlocksShared(ICoreAPI api)
+    private static void RegisterBlocksShared(ICoreAPI api)
     {
         api.RegisterBlockClass("BlockTrail", typeof(BlockTrail));
     }
@@ -129,8 +129,7 @@ public class TrailModCore : ModSystem
             }
             else
             {
-                //We don't have a valid config.
-                throw new Exception();
+                api.World.Logger.Warning("TrailModConfig.json is invalid, will skip");
             }
         }
         catch (Exception e)
@@ -144,51 +143,51 @@ public class TrailModCore : ModSystem
     private void ApplyConfigPatchFlags(ICoreAPI api)
     {
         //Enable/Disable Config Settngs (shared to clients via world config bag)
-        api.World.Config.SetBool("dirtRoadsOnly", config.dirtRoadsOnly);
+        api.World.Config.SetBool("dirtRoadsOnly", config.DirtRoadsOnly);
 
         // NEW: whether to render the protection overlay on clients
-        api.World.Config.SetBool("trailmodShowOverlay", config.showProtectionOverlay);
+        api.World.Config.SetBool("trailmodShowOverlay", config.ShowProtectionOverlay);
     }
 
     private void ApplyConfigGlobalConsts()
     {
         //GENERAL SETTINGS
-        TrailModGlobals.creativeTrampling = config.creativeTrampling;
-        TrailModGlobals.foliageTrampleSounds = config.foliageTrampleSounds;
-        TrailModGlobals.onlyPlayersCreateTrails = config.onlyPlayersCreateTrails;
-        TrailModGlobals.flowerTrampling = config.flowerTrampling;
-        TrailModGlobals.fernTrampling = config.fernTrampling;
+        TrailModGlobals.CeativeTrampling = config.CreativeTrampling;
+        TrailModGlobals.FoliageTrampleSounds = config.FoliageTrampleSounds;
+        TrailModGlobals.OnlyPlayersCreateTrails = config.OnlyPlayersCreateTrails;
+        TrailModGlobals.FlowerTrampling = config.FlowerTrampling;
+        TrailModGlobals.FernTrampling = config.FernTrampling;
 
         //FOLIAGE TRAMPLE SETTINGS
-        TrailModGlobals.onlyTrampleGrassOnTrailCreation = config.onlyTrampleGrassOnTrailCreation;
-        TrailModGlobals.onlyTrampleFlowersOnTrailCreation = config.onlyTrampleFlowersOnTrailCreation;
-        TrailModGlobals.onlyTrampleFernsOnTrailCreation = config.onlyTrampleFernsOnTrailCreation;
+        TrailModGlobals.OnlyTrampleGrassOnTrailCreation = config.OnlyTrampleGrassOnTrailCreation;
+        TrailModGlobals.OnlyTrampleFlowersOnTrailCreation = config.OnlyTrampleFlowersOnTrailCreation;
+        TrailModGlobals.OnlyTrampleFernsOnTrailCreation = config.OnlyTrampleFernsOnTrailCreation;
 
         //TRAIL DEVOLVE TIMES
-        TrailModGlobals.trampledSoilDevolveDays = config.trampledSoilDevolveDays;
-        TrailModGlobals.trailDevolveDays = config.trailDevolveDays;
+        TrailModGlobals.TrampledSoilDevolveDays = config.TrampledSoilDevolveDays;
+        TrailModGlobals.TrailDevolveDays = config.TrailDevolveDays;
 
         //SOIL
-        TrailModGlobals.normalToSparseGrassTouchCount = config.normalToSparseGrassTouchCount;
-        TrailModGlobals.sparseToVerySparseGrassTouchCount = config.sparseToVerySparseGrassTouchCount;
-        TrailModGlobals.verySparseToSoilTouchCount = config.verySparseToSoilTouchCount;
-        TrailModGlobals.soilToTrampledSoilTouchCount = config.soilToTrampledSoilTouchCount;
+        TrailModGlobals.NormalToSparseGrassTouchCount = config.NormalToSparseGrassTouchCount;
+        TrailModGlobals.SparseToVerySparseGrassTouchCount = config.SparseToVerySparseGrassTouchCount;
+        TrailModGlobals.VerySparseToSoilTouchCount = config.VerySparseToSoilTouchCount;
+        TrailModGlobals.SoilToTrampledSoilTouchCount = config.SoilToTrampledSoilTouchCount;
 
         //TRAILS
-        TrailModGlobals.trampledSoilToNewTrailTouchCount = config.trampledSoilToNewTrailTouchCount;
-        TrailModGlobals.newToEstablishedTrailTouchCount = config.newToEstablishedTrailTouchCount;
-        TrailModGlobals.establishedToDirtRoadTouchCount = config.establishedToDirtRoadTouchCount;
-        TrailModGlobals.dirtRoadToHighwayTouchCount = config.dirtRoadToHighwayTouchCount;
-        TrailModGlobals.forestFloorToSoilTouchCount = config.forestFloorToSoilTouchCount;
+        TrailModGlobals.TrampledSoilToNewTrailTouchCount = config.TrampledSoilToNewTrailTouchCount;
+        TrailModGlobals.NewToEstablishedTrailTouchCount = config.NewToEstablishedTrailTouchCount;
+        TrailModGlobals.EstablishedToDirtRoadTouchCount = config.EstablishedToDirtRoadTouchCount;
+        TrailModGlobals.DirtRoadToHighwayTouchCount = config.DirtRoadToHighwayTouchCount;
+        TrailModGlobals.ForestFloorToSoilTouchCount = config.ForestFloorToSoilTouchCount;
 
         //COB, PEAT, CLAY
-        TrailModGlobals.cobLoseGrassTouchCount = config.cobLoseGrassTouchCount;
-        TrailModGlobals.peatLoseGrassTouchCount = config.peatLoseGrassTouchCount;
-        TrailModGlobals.clayLoseGrassTouchCount = config.clayLoseGrassTouchCount;
+        TrailModGlobals.CobLoseGrassTouchCount = config.CobLoseGrassTouchCount;
+        TrailModGlobals.PeatLoseGrassTouchCount = config.PeatLoseGrassTouchCount;
+        TrailModGlobals.ClayLoseGrassTouchCount = config.ClayLoseGrassTouchCount;
 
         //ENTITY MIN HULL SIZE TO TRAMPLE
-        TrailModGlobals.minEntityHullSizeToTrampleX = config.minEntityHullSizeToTrampleX;
-        TrailModGlobals.minEntityHullSizeToTrampleY = config.minEntityHullSizeToTrampleY;
+        TrailModGlobals.MinEntityHullSizeToTrampleX = config.MinEntityHullSizeToTrampleX;
+        TrailModGlobals.MinEntityHullSizeToTrampleY = config.MinEntityHullSizeToTrampleY;
     }
 
     public override void Dispose()

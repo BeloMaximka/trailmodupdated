@@ -109,30 +109,12 @@ public struct TrailBlockPosEntry
     }
 }
 
-public struct TrailTouchCallbackData
+public readonly struct TrailBlockTouchTransformData(AssetLocation code, int transformOnTouchCount, int transformBlockID, bool transformByPlayerOnly)
 {
-    public readonly int blockIDTransformTo;
-
-    TrailTouchCallbackData(int blockIDTransformTo)
-    {
-        this.blockIDTransformTo = blockIDTransformTo;
-    }
-}
-
-public struct TrailBlockTouchTransformData
-{
-    public readonly AssetLocation code; //Readable Block Code;
-    public readonly int transformOnTouchCount = -1;
-    public readonly int transformBlockID = -1;
-    public readonly bool transformByPlayerOnly = false;
-
-    public TrailBlockTouchTransformData(AssetLocation code, int transformOnTouchCount, int transformBlockID, bool transformByPlayerOnly)
-    {
-        this.code = code;
-        this.transformOnTouchCount = transformOnTouchCount;
-        this.transformBlockID = transformBlockID;
-        this.transformByPlayerOnly = transformByPlayerOnly;
-    }
+    public readonly AssetLocation code = code; //Readable Block Code;
+    public readonly int transformOnTouchCount = transformOnTouchCount;
+    public readonly int transformBlockID = transformBlockID;
+    public readonly bool transformByPlayerOnly = transformByPlayerOnly;
 }
 
 public class TrailChunkManager
@@ -153,7 +135,6 @@ public class TrailChunkManager
     const string COB_CODE = "cob";
     const string PEAT_CODE = "peat";
     const string CLAY_CODE = "rawclay";
-    const string TALLGRASS_END_CODE = "free";
     const string TRAIL_CODE = "trailmodupdated:trail";
     const string TRAIL_WEAR_VARIANT_NEW_CODE = "new";
     const string TRAIL_WEAR_VARIANT_OLD_CODE = "old";
@@ -162,7 +143,6 @@ public class TrailChunkManager
     const string PACKED_DIRT_CODE = "packeddirt";
     const string PACKED_DIRT_ARID_CODE = "drypackeddirt";
     const string STONE_PATH_CODE = "stonepath-free";
-    const string TALLGRASS_SHORT_CODE = "tallgrass-short-free";
     const string TALLGRASS_EATEN_CODE = "tallgrass-eaten-free";
 
     const int FOREST_FLOOR_VARIATION_COUNT = 8;
@@ -172,18 +152,17 @@ public class TrailChunkManager
     private static readonly string[] PEAT_AND_CLAY_GRASS_VARIANTS = { "verysparse", "none" };
     private static readonly string[] CLAY_TYPE_VARIANTS = { "blue", "fire", "red" };
     private static readonly string[] TRAIL_WEAR_VARIANTS = { "new", "established", "veryestablished", "old" };
-    private static readonly string[] TALLGRASS_LENGTH_VARIANTS = { "verytall", "tall", "medium", "mediumshort", "short", "veryshort" };
 
     public IWorldAccessor worldAccessor;
     private ICoreServerAPI serverApi;
 
-    object trailModificationLock = new();
+    private readonly object trailModificationLock = new();
 
     //Callbacks based on number of block touches, stored by block ID;
-    private static Dictionary<int, TrailBlockTouchTransformData> trailBlockTouchTransforms = new();
+    private static Dictionary<int, TrailBlockTouchTransformData> trailBlockTouchTransforms = [];
 
     //Current World Trail Data Stored in Memory.
-    private Dictionary<IWorldChunk, Dictionary<long, TrailBlockPosEntry>> trailChunkEntries = new();
+    private readonly Dictionary<IWorldChunk, Dictionary<long, TrailBlockPosEntry>> trailChunkEntries = [];
 
     public static TrailChunkManager trailChunkManagerSingleton;
 
@@ -572,7 +551,7 @@ public class TrailChunkManager
             CreateTrailBlockTransform(
                 blockAsset,
                 block.BlockId,
-                TrailModGlobals.trampledSoilToNewTrailTouchCount,
+                TrailModGlobals.TrampledSoilToNewTrailTouchCount,
                 transformBlock.BlockId,
                 true
             );
@@ -593,15 +572,15 @@ public class TrailChunkManager
             switch (i)
             {
                 case 0: //New Trail to Established
-                    trailTransformTouchCountByVariant[i] = TrailModGlobals.newToEstablishedTrailTouchCount;
+                    trailTransformTouchCountByVariant[i] = TrailModGlobals.NewToEstablishedTrailTouchCount;
                     trailTransformByPlayerOnlyByVariant[i] = true;
                     break;
                 case 1: //Established Trail to Very Established
-                    trailTransformTouchCountByVariant[i] = TrailModGlobals.establishedToDirtRoadTouchCount;
+                    trailTransformTouchCountByVariant[i] = TrailModGlobals.EstablishedToDirtRoadTouchCount;
                     trailTransformByPlayerOnlyByVariant[i] = true;
                     break;
                 case 2: //Very Established Trail to Old Trail
-                    trailTransformTouchCountByVariant[i] = TrailModGlobals.dirtRoadToHighwayTouchCount;
+                    trailTransformTouchCountByVariant[i] = TrailModGlobals.DirtRoadToHighwayTouchCount;
                     trailTransformByPlayerOnlyByVariant[i] = true;
                     break;
                 case 3: //Old Trail to Old Trail
@@ -645,19 +624,19 @@ public class TrailChunkManager
             switch (i)
             {
                 case 0: //Normal to Sparse
-                    soilTransformTouchCountByVariant[i] = TrailModGlobals.normalToSparseGrassTouchCount;
+                    soilTransformTouchCountByVariant[i] = TrailModGlobals.NormalToSparseGrassTouchCount;
                     soilTransformByPlayerOnlyByVariant[i] = false;
                     break;
                 case 1: //Sparse to Very Sparse
-                    soilTransformTouchCountByVariant[i] = TrailModGlobals.sparseToVerySparseGrassTouchCount;
+                    soilTransformTouchCountByVariant[i] = TrailModGlobals.SparseToVerySparseGrassTouchCount;
                     soilTransformByPlayerOnlyByVariant[i] = false;
                     break;
                 case 2: //Very Sparse to None
-                    soilTransformTouchCountByVariant[i] = TrailModGlobals.verySparseToSoilTouchCount;
+                    soilTransformTouchCountByVariant[i] = TrailModGlobals.VerySparseToSoilTouchCount;
                     soilTransformByPlayerOnlyByVariant[i] = false;
                     break;
                 case 3: //None to pretrail
-                    soilTransformTouchCountByVariant[i] = TrailModGlobals.soilToTrampledSoilTouchCount;
+                    soilTransformTouchCountByVariant[i] = TrailModGlobals.SoilToTrampledSoilTouchCount;
                     soilTransformByPlayerOnlyByVariant[i] = true; //only players can make new pretrails.
                     break;
                 default:
@@ -688,7 +667,7 @@ public class TrailChunkManager
         for (int i = 0; i < cobTransformTouchCountByVariants.Length; i++)
         {
             //Cob just loses grass over time but never evolves.
-            cobTransformTouchCountByVariants[i] = TrailModGlobals.cobLoseGrassTouchCount;
+            cobTransformTouchCountByVariants[i] = TrailModGlobals.CobLoseGrassTouchCount;
             cobTransformByPlayerOnlyByVariants[i] = false;
         }
 
@@ -710,7 +689,7 @@ public class TrailChunkManager
         for (int i = 0; i < peatTransformTouchCountByVariants.Length; i++)
         {
             //Peat just loses surface grass but never evolves.
-            peatTransformTouchCountByVariants[i] = TrailModGlobals.peatLoseGrassTouchCount;
+            peatTransformTouchCountByVariants[i] = TrailModGlobals.PeatLoseGrassTouchCount;
             peatTransformByPlayerOnlyByVariants[i] = false;
         }
 
@@ -734,7 +713,7 @@ public class TrailChunkManager
         for (int i = 0; i < clayTransformTouchCountByVariants.Length; i++)
         {
             //Clay just loses surface grass but never evolves.
-            clayTransformTouchCountByVariants[i] = TrailModGlobals.clayLoseGrassTouchCount;
+            clayTransformTouchCountByVariants[i] = TrailModGlobals.ClayLoseGrassTouchCount;
             clayTransformByPlayerOnlyByVariants[i] = false;
         }
 
@@ -767,19 +746,19 @@ public class TrailChunkManager
             if (i == 0)
             {
                 //Forest Floor Full to forest floor sparse.
-                forestFloorTransformTouchCountByVariants[i] = TrailModGlobals.normalToSparseGrassTouchCount;
+                forestFloorTransformTouchCountByVariants[i] = TrailModGlobals.NormalToSparseGrassTouchCount;
                 forestFloorTransfromByPlayerOnlyByVariants[i] = false;
             }
             else if (i == forestFloorTransformTouchCountByVariants.Length - 1)
             {
                 //Forest floor to low tier soil.
-                forestFloorTransformTouchCountByVariants[i] = TrailModGlobals.forestFloorToSoilTouchCount;
+                forestFloorTransformTouchCountByVariants[i] = TrailModGlobals.ForestFloorToSoilTouchCount;
                 forestFloorTransfromByPlayerOnlyByVariants[i] = false;
             }
             else
             {
                 //Progression through forest floor sparse
-                forestFloorTransformTouchCountByVariants[i] = TrailModGlobals.sparseToVerySparseGrassTouchCount;
+                forestFloorTransformTouchCountByVariants[i] = TrailModGlobals.SparseToVerySparseGrassTouchCount;
                 forestFloorTransfromByPlayerOnlyByVariants[i] = false;
             }
         }
@@ -903,7 +882,7 @@ public class TrailChunkManager
                 }
             }
 
-            if (TrailModGlobals.onlyPlayersCreateTrails && !touchIsPlayer)
+            if (TrailModGlobals.OnlyPlayersCreateTrails && !touchIsPlayer)
                 return;
 
             Debug.Assert(touchEnt is EntityAgent);
@@ -920,9 +899,8 @@ public class TrailChunkManager
 
             long blockTrailID = ConvertBlockPositionToTrailPosID(blockPos);
 
-            if (block is BlockTrail)
+            if (block is BlockTrail blockTrail)
             {
-                BlockTrail blockTrail = (BlockTrail)block;
                 blockTrail.TrailBlockTouched(world);
             }
 
@@ -999,7 +977,7 @@ public class TrailChunkManager
 
             trailChunkEntries[chunk].Remove(blockTrailID);
 
-            if (trailChunkEntries[chunk].Count() == 0)
+            if (trailChunkEntries[chunk].Count != 0)
                 trailChunkEntries.Remove(chunk);
         }
     }
@@ -1193,18 +1171,6 @@ public class TrailChunkManager
         return finalVal;
     }
 
-    private static int CountDigits(long number)
-    {
-        int digits = 0;
-        while (number > 0)
-        {
-            number /= 10;
-            digits++;
-        }
-
-        return digits;
-    }
-
     private static ETrailTrampleType CanTramplePlant(
         Block plantBlock,
         BlockPos plantPos,
@@ -1227,29 +1193,29 @@ public class TrailChunkManager
         {
             if (plantBlock is BlockTallGrass)
             {
-                if (!TrailModGlobals.onlyTrampleGrassOnTrailCreation || groundIsTrail)
+                if (!TrailModGlobals.OnlyTrampleGrassOnTrailCreation || groundIsTrail)
                     return ETrailTrampleType.TALLGRASS;
             }
 
-            if (TrailModGlobals.flowerTrampling)
+            if (TrailModGlobals.FlowerTrampling)
             {
                 if (plantBlock is BlockLupine)
-                    if (!TrailModGlobals.onlyTrampleFlowersOnTrailCreation || groundIsTrail)
+                    if (!TrailModGlobals.OnlyTrampleFlowersOnTrailCreation || groundIsTrail)
                         return ETrailTrampleType.DEFAULT;
             }
 
             string code = plantBlock.Code.FirstCodePart();
 
-            if (TrailModGlobals.flowerTrampling)
+            if (TrailModGlobals.FlowerTrampling)
             {
                 if (code == "flower")
-                    if (!TrailModGlobals.onlyTrampleFlowersOnTrailCreation || groundIsTrail)
+                    if (!TrailModGlobals.OnlyTrampleFlowersOnTrailCreation || groundIsTrail)
                         return ETrailTrampleType.DEFAULT;
             }
 
-            if (TrailModGlobals.fernTrampling)
+            if (TrailModGlobals.FernTrampling)
             {
-                if (!TrailModGlobals.onlyTrampleFernsOnTrailCreation || groundIsTrail)
+                if (!TrailModGlobals.OnlyTrampleFernsOnTrailCreation || groundIsTrail)
                 {
                     if (plantBlock is BlockFern)
                         return ETrailTrampleType.DEFAULT;
@@ -1300,7 +1266,7 @@ public class TrailChunkManager
         {
             case ETrailTrampleType.DEFAULT:
                 float dropRate = ShouldDropPlantOnTrample(upBlock) ? 1.0f : 0.0f;
-                if (TrailModGlobals.foliageTrampleSounds || dropRate > 0)
+                if (TrailModGlobals.FoliageTrampleSounds || dropRate > 0)
                 {
                     world.BlockAccessor.BreakBlock(upPos, null, dropRate);
                 }
@@ -1318,7 +1284,7 @@ public class TrailChunkManager
 
                 if (groundIsTrail)
                 {
-                    if (TrailModGlobals.foliageTrampleSounds)
+                    if (TrailModGlobals.FoliageTrampleSounds)
                     {
                         world.BlockAccessor.BreakBlock(upPos, null, 0);
                     }
@@ -1334,7 +1300,7 @@ public class TrailChunkManager
                     //We want to imediately trample grass on clay and peat deposits.
                     if (groundBlock is BlockSoilDeposit)
                     {
-                        if (TrailModGlobals.foliageTrampleSounds)
+                        if (TrailModGlobals.FoliageTrampleSounds)
                         {
                             world.BlockAccessor.BreakBlock(upPos, null, 0);
                         }
@@ -1367,10 +1333,10 @@ public class TrailChunkManager
         if (selBox == null)
             return false;
 
-        if (selBox.X < TrailModGlobals.minEntityHullSizeToTrampleX)
+        if (selBox.X < TrailModGlobals.MinEntityHullSizeToTrampleX)
             return false;
 
-        if (selBox.Y < TrailModGlobals.minEntityHullSizeToTrampleY)
+        if (selBox.Y < TrailModGlobals.MinEntityHullSizeToTrampleY)
             return false;
 
         return true;

@@ -116,7 +116,7 @@ public class OverrideOnEntityCollide
         {
             EntityPlayer entityPlayer = (EntityPlayer)entity;
             if (entityPlayer.Player.WorldData.CurrentGameMode != EnumGameMode.Survival)
-                if (!TrailModGlobals.creativeTrampling || entityPlayer.Player.WorldData.CurrentGameMode != EnumGameMode.Creative)
+                if (!TrailModGlobals.CeativeTrampling || entityPlayer.Player.WorldData.CurrentGameMode != EnumGameMode.Creative)
                     return;
         }
 

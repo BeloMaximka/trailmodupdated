@@ -2,34 +2,34 @@
 
 public static class TrailModGlobals
 {
-    public static bool creativeTrampling = false;
-    public static bool foliageTrampleSounds = true;
-    public static bool onlyPlayersCreateTrails = false;
-    public static bool flowerTrampling = true;
-    public static bool fernTrampling = true;
+    public static bool CeativeTrampling { get; set; } = false;
+    public static bool FoliageTrampleSounds { get; set; } = true;
+    public static bool OnlyPlayersCreateTrails { get; set; } = false;
+    public static bool FlowerTrampling { get; set; } = true;
+    public static bool FernTrampling { get; set; } = true;
 
-    public static bool onlyTrampleGrassOnTrailCreation = false;
-    public static bool onlyTrampleFlowersOnTrailCreation = true;
-    public static bool onlyTrampleFernsOnTrailCreation = true;
+    public static bool OnlyTrampleGrassOnTrailCreation { get; set; } = false;
+    public static bool OnlyTrampleFlowersOnTrailCreation { get; set; } = true;
+    public static bool OnlyTrampleFernsOnTrailCreation { get; set; } = true;
 
-    public static float trampledSoilDevolveDays = 7.0f;
-    public static float trailDevolveDays = 60.0f;
+    public static float TrampledSoilDevolveDays { get; set; } = 7.0f;
+    public static float TrailDevolveDays { get; set; } = 60.0f;
 
-    public static int normalToSparseGrassTouchCount = 1;
-    public static int sparseToVerySparseGrassTouchCount = 1;
-    public static int verySparseToSoilTouchCount = 1;
-    public static int soilToTrampledSoilTouchCount = 1;
-    public static int trampledSoilToNewTrailTouchCount = 3;
-    public static int newToEstablishedTrailTouchCount = 25;
-    public static int establishedToDirtRoadTouchCount = 50;
-    public static int dirtRoadToHighwayTouchCount = 75;
+    public static int NormalToSparseGrassTouchCount { get; set; } = 1;
+    public static int SparseToVerySparseGrassTouchCount { get; set; } = 1;
+    public static int VerySparseToSoilTouchCount { get; set; } = 1;
+    public static int SoilToTrampledSoilTouchCount { get; set; } = 1;
+    public static int TrampledSoilToNewTrailTouchCount { get; set; } = 3;
+    public static int NewToEstablishedTrailTouchCount { get; set; } = 25;
+    public static int EstablishedToDirtRoadTouchCount { get; set; } = 50;
+    public static int DirtRoadToHighwayTouchCount { get; set; } = 75;
 
-    public static int forestFloorToSoilTouchCount = 2;
+    public static int ForestFloorToSoilTouchCount { get; set; } = 2;
 
-    public static int cobLoseGrassTouchCount = 1;
-    public static int peatLoseGrassTouchCount = 1;
-    public static int clayLoseGrassTouchCount = 1;
+    public static int CobLoseGrassTouchCount { get; set; } = 1;
+    public static int PeatLoseGrassTouchCount { get; set; } = 1;
+    public static int ClayLoseGrassTouchCount { get; set; } = 1;
 
-    public static float minEntityHullSizeToTrampleX = 0;
-    public static float minEntityHullSizeToTrampleY = 0;
+    public static float MinEntityHullSizeToTrampleX { get; set; } = 0;
+    public static float MinEntityHullSizeToTrampleY { get; set; } = 0;
 }

@@ -40,7 +40,7 @@ public class BlockBehaviorTrampleProtection(Block block) : BlockBehavior(block)
         base.OnBlockExploded(world, pos, explosionCenter, blastType, ref handling);
     }
 
-    public override void OnBlockPlaced(IWorldAccessor world, BlockPos pos, ref EnumHandling handling)
+    public override void OnBlockPlaced(IWorldAccessor world, BlockPos blockPos, ref EnumHandling handling)
     {
         if (world.Side == EnumAppSide.Server)
         {
@@ -48,8 +48,8 @@ public class BlockBehaviorTrampleProtection(Block block) : BlockBehavior(block)
             ModSystemTrampleProtection modTramplePro;
             modTramplePro = world.Api.ModLoader.GetModSystem<ModSystemTrampleProtection>();
 
-            if (modTramplePro.IsTrampleProtected(pos))
-                modTramplePro.ClearTrampleProtection(pos);
+            if (modTramplePro.IsTrampleProtected(blockPos))
+                modTramplePro.ClearTrampleProtection(blockPos);
         }
     }
 

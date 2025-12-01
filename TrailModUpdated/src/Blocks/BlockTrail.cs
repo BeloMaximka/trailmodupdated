@@ -75,11 +75,11 @@ public class BlockTrail : Block
         }
     }
 
-    public override bool ShouldReceiveServerGameTicks(IWorldAccessor world, BlockPos pos, Random offThreadRandom, out object extra)
+    public override bool ShouldReceiveServerGameTicks(IWorldAccessor world, BlockPos pos, Random offThreadRandom, out object? extra)
     {
         //Look at making this more efficient.
         extra = null;
-        return true; //base.ShouldReceiveServerGameTicks(world, pos, offThreadRandom, out extra);
+        return true;
     }
 
     public void UpdateLastTrailTouchDayFromLoadedData(double lastTouchDay, BlockPos pos)
@@ -175,9 +175,9 @@ public class BlockTrail : Block
     private static double GetTrailDevolveDays(string wearVariant)
     {
         if (wearVariant == "pretrail")
-            return TrailModGlobals.trampledSoilDevolveDays;
+            return TrailModGlobals.TrampledSoilDevolveDays;
 
-        return TrailModGlobals.trailDevolveDays;
+        return TrailModGlobals.TrailDevolveDays;
     }
 
     private static int GetTrailWearIndexFromWearCode(string wearCode)

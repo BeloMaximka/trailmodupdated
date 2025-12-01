@@ -24,28 +24,22 @@ public class ItemTrowel : Item
 
     const int MAX_VOLUME = 32 * 32 * 32;
 
-    ICoreClientAPI capi;
-
-    WorldInteraction[] interactions;
+    WorldInteraction[] interactions = [];
     SkillItem[] modeItems = [];
 
-    readonly List<BlockPos> blockHighlightPositions = new();
-    readonly List<int> blockHighlightColors = new();
+    readonly List<BlockPos> blockHighlightPositions = [];
+    readonly List<int> blockHighlightColors = [];
     int overlayUpdateCounter = 0;
 
-    private BlockPos lastOverlayCenter = null;
-    private BlockPos lastOverlayStart = null;
-    private BlockPos lastOverlayEnd = null;
-    private BlockPos lastOverlayHover = null;
+    private BlockPos? lastOverlayCenter;
+    private BlockPos? lastOverlayStart;
+    private BlockPos? lastOverlayEnd;
+    private BlockPos? lastOverlayHover;
     private int lastOverlayMode = -1;
 
     public override void OnLoaded(ICoreAPI api)
     {
         base.OnLoaded(api);
-        if (api is ICoreClientAPI clientApi)
-        {
-            capi = clientApi;
-        }
 
         interactions = ObjectCacheUtil.GetOrCreate(
             api,
@@ -67,38 +61,41 @@ public class ItemTrowel : Item
 
     public override SkillItem[] GetToolModes(ItemSlot slot, IClientPlayer forPlayer, BlockSelection blockSel)
     {
-        if (modeItems.Length == 0 && capi != null)
+        if (modeItems.Length != 0 || forPlayer.Entity.Api is not ICoreClientAPI capi)
         {
-            modeItems =
-            [
-                new SkillItem() { Code = new AssetLocation("single"), Name = Lang.Get("Single block") },
-                new SkillItem() { Code = new AssetLocation("select"), Name = Lang.Get("Protect area") },
-                new SkillItem() { Code = new AssetLocation("selectremove"), Name = Lang.Get("Unprotect area") },
-            ];
-
-            // Load textures
-            modeItems[0].Texture = capi.Gui.LoadSvgWithPadding(
-                new AssetLocation("trailmodupdated:textures/icons/single.svg"),
-                48,
-                48,
-                5,
-                ColorUtil.WhiteArgb
-            );
-            modeItems[1].Texture = capi.Gui.LoadSvgWithPadding(
-                new AssetLocation("trailmodupdated:textures/icons/select.svg"),
-                48,
-                48,
-                5,
-                ColorUtil.WhiteArgb
-            );
-            modeItems[2].Texture = capi.Gui.LoadSvgWithPadding(
-                new AssetLocation("trailmodupdated:textures/icons/selectremove.svg"),
-                48,
-                48,
-                5,
-                ColorUtil.WhiteArgb
-            );
+            return modeItems;
         }
+
+        modeItems =
+        [
+            new SkillItem() { Code = new AssetLocation("single"), Name = Lang.Get("Single block") },
+            new SkillItem() { Code = new AssetLocation("select"), Name = Lang.Get("Protect area") },
+            new SkillItem() { Code = new AssetLocation("selectremove"), Name = Lang.Get("Unprotect area") },
+        ];
+
+        // Load textures
+        modeItems[0].Texture = capi.Gui.LoadSvgWithPadding(
+            new AssetLocation("trailmodupdated:textures/icons/single.svg"),
+            48,
+            48,
+            5,
+            ColorUtil.WhiteArgb
+        );
+        modeItems[1].Texture = capi.Gui.LoadSvgWithPadding(
+            new AssetLocation("trailmodupdated:textures/icons/select.svg"),
+            48,
+            48,
+            5,
+            ColorUtil.WhiteArgb
+        );
+        modeItems[2].Texture = capi.Gui.LoadSvgWithPadding(
+            new AssetLocation("trailmodupdated:textures/icons/selectremove.svg"),
+            48,
+            48,
+            5,
+            ColorUtil.WhiteArgb
+        );
+
         return modeItems;
     }
 
@@ -308,10 +305,10 @@ public class ItemTrowel : Item
             EnumChatType.Notification
         );
 
-        ClearSelection(byEntity.World, splayer, true);
+        ClearSelection(splayer, true);
     }
 
-    void TryUnprotectArea(EntityAgent byEntity, BlockPos a, BlockPos b)
+    private static void TryUnprotectArea(EntityAgent byEntity, BlockPos a, BlockPos b)
     {
         var api = byEntity.Api;
         var modTramplePro = api.ModLoader.GetModSystem<ModSystemTrampleProtection>();
@@ -362,7 +359,7 @@ public class ItemTrowel : Item
             EnumChatType.Notification
         );
 
-        ClearSelection(byEntity.World, splayer, true);
+        ClearSelection(splayer, true);
     }
 
     // Helpers
@@ -376,24 +373,25 @@ public class ItemTrowel : Item
         byEntity?.WatchedAttributes?.SetBlockPos(key, pos);
     }
 
-    void ClearSelection(IWorldAccessor world, IPlayer player, bool alsoClearOverlay)
+    private static void ClearSelection(IPlayer player, bool alsoClearOverlay)
     {
-        var ent = (player as IClientPlayer)?.Entity ?? (player as IServerPlayer)?.Entity;
-        if (ent != null)
+        if (player.Entity.Api is not ICoreClientAPI capi)
         {
-            ent.WatchedAttributes.RemoveAttribute(AttrSelStart);
-            ent.WatchedAttributes.RemoveAttribute(AttrSelEnd);
+            return;
         }
+
+        player.Entity.WatchedAttributes.RemoveAttribute(AttrSelStart);
+        player.Entity.WatchedAttributes.RemoveAttribute(AttrSelEnd);
 
         if (alsoClearOverlay && capi != null)
         {
-            capi.World.HighlightBlocks(capi.World.Player, TROWEL_HIGHLIGHT_SLOT_ID, new List<BlockPos>());
+            capi.World.HighlightBlocks(capi.World.Player, TROWEL_HIGHLIGHT_SLOT_ID, []);
         }
     }
 
-    void UpdateSelectionOverlayClient(EntityAgent byEntity)
+    private void UpdateSelectionOverlayClient(EntityAgent byEntity)
     {
-        if (capi == null)
+        if (byEntity.Api is not ICoreClientAPI capi)
             return;
 
         var player = capi.World?.Player;

@@ -3,6 +3,7 @@ using ProtoBuf;
 using System;
 using System.Reflection;
 using Vintagestory.API.Common;
+using Vintagestory.API.Config;
 using Vintagestory.API.Server;
 
 namespace TrailModUpdated;
@@ -62,13 +63,16 @@ public class TrailModCore : ModSystem
     {
         base.StartPre(api);
 
-        //Debug Test For Block Accessing. Comment out when done.
-        //RuntimeEnv.DebugOutOfRangeBlockAccess = true;
+#if DEBUG
+#pragma warning disable S2696 // Instance members should not write to "static" fields
+        RuntimeEnv.DebugOutOfRangeBlockAccess = true;
+#pragma warning restore S2696
+#endif
 
-        if (api.Side == EnumAppSide.Server)
+        if (api is ICoreServerAPI sapi)
         {
-            ReadConfigFromJson(api);
-            ApplyConfigPatchFlags(api);
+            ReadConfigFromJson(sapi);
+            ApplyConfigPatchFlags(sapi);
             ApplyConfigGlobalConsts();
         }
     }
@@ -106,7 +110,7 @@ public class TrailModCore : ModSystem
                 //Clean up all manager stuff.
                 //If we don't it persists between loads.
                 trailChunkManager.ShutdownCleanup();
-                trailChunkManager = null;
+                trailChunkManager = null!;
             }
         );
     }
@@ -116,28 +120,23 @@ public class TrailModCore : ModSystem
         api.RegisterBlockClass("BlockTrail", typeof(BlockTrail));
     }
 
-    private void ReadConfigFromJson(ICoreAPI api)
+    private void ReadConfigFromJson(ICoreServerAPI api)
     {
-        //Called Server Only
+        string fileName = "TrailModConfig.json";
         try
         {
-            TrailModConfig modConfig = api.LoadModConfig<TrailModConfig>("TrailModConfig.json");
+            TrailModConfig modConfig = api.LoadModConfig<TrailModConfig>(fileName);
 
             if (modConfig != null)
             {
                 config = modConfig;
             }
-            else
-            {
-                api.World.Logger.Warning("TrailModConfig.json is invalid, will skip");
-            }
         }
         catch (Exception e)
         {
-            api.World.Logger.Error("Failed loading TrailModConfig.json, Will initialize new one", e);
-            config = new TrailModConfig();
-            api.StoreModConfig(config, "TrailModConfig.json");
+            api.World.Logger.Error($"{fileName} is invalid, will generate a new one", e);
         }
+        api.StoreModConfig(config, fileName);
     }
 
     private void ApplyConfigPatchFlags(ICoreAPI api)
